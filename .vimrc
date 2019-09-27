@@ -48,11 +48,17 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 
 endif
 
+if &diff
+
+    highlight! link DiffText MatchParen
+
+endif
 
 call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/vim-easy-align'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
