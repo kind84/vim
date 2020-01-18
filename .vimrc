@@ -40,6 +40,8 @@ inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
+autocmd FileType yaml setlocal shiftwidth=4 softtabstop=4 expandtab
+
 if empty(glob('~/.vim/autoload/plug.vim'))
 
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -63,9 +65,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'jparise/vim-graphql'
 
 call plug#end()
 
 let g:airline_powerline_fonts = 1
 let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'css', 'vim', 'json', 'diff', 'go', 'python']
-
+let g:go_debug_address = '127.0.0.1:2345'
