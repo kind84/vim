@@ -74,6 +74,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jparise/vim-graphql'
+Plug 'cespare/vim-toml'
 
 call plug#end()
 
