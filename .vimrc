@@ -46,7 +46,9 @@ nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 
+autocmd FileType javascript setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType yaml setlocal shiftwidth=4 softtabstop=4 expandtab
+autocmd FileType vue setlocal shiftwidth=2 softtabstop=2 expandtab
 
 if empty(glob('~/.vim/autoload/plug.vim'))
 
@@ -75,9 +77,12 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jparise/vim-graphql'
 Plug 'cespare/vim-toml'
+Plug 'ziglang/zig.vim'
+Plug 'mileszs/ack.vim'
 
 call plug#end()
 
+let g:ackprg = 'ag --vimgrep'
 let g:airline_powerline_fonts = 1
 let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'css', 'vim', 'json', 'diff', 'go', 'python']
 

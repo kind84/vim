@@ -4,6 +4,12 @@
       "command": "gopls",
       "rootPatterns": ["go.mod"],
       "filetypes": ["go"]
+    },
+    "zig": {
+      "command": "zls",
+      "filetypes": [
+        "zig"
+      ]
     }
 }
 }
