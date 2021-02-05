@@ -46,6 +46,9 @@ nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 
+" map FZF to <C-p>
+nnoremap <C-p> :FZF<cr>
+
 autocmd FileType javascript setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType yaml setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType vue setlocal shiftwidth=2 softtabstop=2 expandtab
