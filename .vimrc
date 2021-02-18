@@ -46,8 +46,9 @@ nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 
-" map FZF to <C-p>
-nnoremap <C-p> :FZF<cr>
+" map FZF to <C-p> for files and leader-c for commands
+nnoremap <silent> <C-p> :Files<cr>
+nnoremap <silent> <leader>c :Commands<cr>
 
 autocmd FileType javascript setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType yaml setlocal shiftwidth=4 softtabstop=4 expandtab
@@ -76,6 +77,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jparise/vim-graphql'
@@ -88,6 +90,12 @@ call plug#end()
 let g:ackprg = 'ag --vimgrep'
 let g:airline_powerline_fonts = 1
 let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'css', 'vim', 'json', 'diff', 'go', 'python']
+
+" -------------------------------------------------------------------------------------------------
+" fugitive default settings
+" -------------------------------------------------------------------------------------------------
+
+map <leader>gp :Git push<CR>
 
 " -------------------------------------------------------------------------------------------------
 " nerdtree default settings
@@ -109,6 +117,11 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
 let g:go_debug_address = '127.0.0.1:2345'
+"map <C-j> :lfirst<CR>
+"map <C-l> :lnext<CR>
+"map <C-m> :lprevious<CR>
+"nnoremap <leader>p :lclose<CR>
+
 
 " -------------------------------------------------------------------------------------------------
 " coc.nvim default settings
