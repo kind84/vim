@@ -21,6 +21,9 @@ set updatetime=300
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 
+set background=dark
+set t_Co=256
+
 " always show signcolumns
 " if has("patch-8.1.1564")
 "   " Recently vim can merge signcolumn and number column into one
@@ -49,6 +52,10 @@ nnoremap <silent> ]B :blast<CR>
 " map FZF to <C-p> for files and leader-c for commands
 nnoremap <silent> <C-p> :Files<cr>
 nnoremap <silent> <leader>c :Commands<cr>
+
+" map hexdump to leader-h
+" nnoremap <silent> <leader>xd :%!xxd<CR>
+nnoremap <silent> <leader>h :Hexmode<CR>
 
 autocmd FileType javascript setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType yaml setlocal shiftwidth=4 softtabstop=4 expandtab
@@ -84,10 +91,13 @@ Plug 'jparise/vim-graphql'
 Plug 'cespare/vim-toml'
 Plug 'ziglang/zig.vim'
 Plug 'mileszs/ack.vim'
+Plug 'fidian/hexmode'
+Plug 'https://github.com/ryanoasis/vim-devicons'
+Plug 'https://github.com/adelarsq/vim-devicons-emoji'
 
 call plug#end()
 
-let g:ackprg = 'ag --vimgrep'
+let g:ackprg = 'rg --vimgrep'
 let g:airline_powerline_fonts = 1
 let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'css', 'vim', 'json', 'diff', 'go', 'python']
 
