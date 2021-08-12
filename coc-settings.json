@@ -1,15 +1,25 @@
 {
-"languageserver": {
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod"],
-      "filetypes": ["go"]
-    },
-    "zig": {
-      "command": "zls",
-      "filetypes": [
-        "zig"
-      ]
-    }
-}
+  "languageserver": {
+     "golang": {
+       "command": "gopls",
+       "rootPatterns": ["go.mod"],
+       "filetypes": ["go"]
+     },
+     "zig": {
+       "command": "zls",
+       "filetypes": [
+         "zig"
+       ]
+     },
+     "ccls": {
+       "command": "ccls",
+       "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+       "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+       "initializationOptions": {
+         "cache": {
+             "directory": "/tmp/ccls"
+         }
+       }
+     }
+  }
 }

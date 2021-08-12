@@ -94,6 +94,7 @@ Plug 'mileszs/ack.vim'
 Plug 'fidian/hexmode'
 Plug 'https://github.com/ryanoasis/vim-devicons'
 Plug 'https://github.com/adelarsq/vim-devicons-emoji'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 call plug#end()
 
@@ -187,7 +188,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>rr <Plug>(coc-rename)
 
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
