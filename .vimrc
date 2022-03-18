@@ -24,6 +24,9 @@ set shortmess+=c
 set background=dark
 set t_Co=256
 
+" incremental search and highlight all matches
+set is hls
+
 " always show signcolumns
 " if has("patch-8.1.1564")
 "   " Recently vim can merge signcolumn and number column into one
@@ -95,12 +98,22 @@ Plug 'fidian/hexmode'
 Plug 'https://github.com/ryanoasis/vim-devicons'
 Plug 'https://github.com/adelarsq/vim-devicons-emoji'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'sukima/xmledit'
+"Plug 'adamheins/vim-highlight-match-under-cursor'
 
 call plug#end()
+
+packadd! matchit
 
 let g:ackprg = 'rg --vimgrep'
 let g:airline_powerline_fonts = 1
 let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'css', 'vim', 'json', 'diff', 'go', 'python']
+
+" -------------------------------------------------------------------------------------------------
+" Ctrl-P default settings
+" -------------------------------------------------------------------------------------------------
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " -------------------------------------------------------------------------------------------------
 " fugitive default settings
