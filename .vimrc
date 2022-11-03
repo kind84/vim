@@ -66,6 +66,7 @@ nnoremap = :FormatXML<Cr>
 
 autocmd FileType javascript setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType yaml setlocal shiftwidth=4 softtabstop=4 expandtab
+autocmd FileType proto setlocal shiftwidth=4 softtabstop=4 expandtab
 autocmd FileType vue setlocal shiftwidth=2 softtabstop=2 expandtab
 
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -86,7 +87,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree'
 Plug 'junegunn/vim-easy-align'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'branch': 'master' }
 Plug 'rust-lang/rust.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
@@ -150,6 +151,17 @@ let g:go_debug_address = '127.0.0.1:2345'
 "map <C-l> :lnext<CR>
 "map <C-m> :lprevious<CR>
 "nnoremap <leader>p :lclose<CR>
+
+let g:go_debug_mappings = {
+     \ '(go-debug-continue)': {'key': 'c', 'arguments': '<nowait>'},
+     \ '(go-debug-next)': {'key': 'n', 'arguments': '<nowait>'},
+     \ '(go-debug-step)': {'key': 's'},
+     \ '(go-debug-print)': {'key': 'p'},
+ \}
+
+map <leader>ds :GoDebugStart<cr>
+map <leader>dt :GoDebugStop<cr>
+map <leader>db :GoDebugBreakpoint<cr>
 
 
 " -------------------------------------------------------------------------------------------------
