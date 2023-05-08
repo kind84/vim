@@ -106,6 +106,12 @@ Plug 'https://github.com/adelarsq/vim-devicons-emoji'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'sukima/xmledit'
 "Plug 'adamheins/vim-highlight-match-under-cursor'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/nerdfont.vim'
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/glyph-palette.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'lambdalisue/fern-mapping-project-top.vim'
 
 call plug#end()
 
@@ -140,12 +146,53 @@ map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " -------------------------------------------------------------------------------------------------
+" fern default settings
+" -------------------------------------------------------------------------------------------------
+
+let g:fern#renderer = "nerdfont"
+
+" Custom colors
+let g:glyph_palette#palette = copy(g:glyph_palette#defaults#palette)
+"let g:glyph_palette#palette['GlyphPalette3'] += ['']
+"let g:glyph_palette#palette['GlyphPalette3'] += ['']
+let glyph_custom_palette = glyph_palette#tools#palette_from({
+	      \ 'Function': ['zig'],
+	      \}, {
+	      \ 'zig': '' ,
+              \})
+"let g:glyph_palette#palette['GlyphPalette3'] += [glyph_custom_palette]
+
+
+
+map <leader>ff :Fern .<CR>
+
+function! s:init_fern() abort
+  " Add any code to customize fern buffer
+endfunction
+
+augroup fern-custom
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
+augroup END
+
+augroup my-glyph-palette
+  autocmd! *
+  autocmd FileType fern call glyph_palette#apply()
+  autocmd FileType nerdtree,startify call glyph_palette#apply()
+augroup END
+
+" -------------------------------------------------------------------------------------------------
 " vim-go default settings
 " -------------------------------------------------------------------------------------------------
 
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
+
+let g:go_gopls_enabled = 0
+let g:go_diagnostics_level = 0
+let g:go_doc_keywordprg_enabled = 0
+
 let g:go_debug_address = '127.0.0.1:2345'
 "map <C-j> :lfirst<CR>
 "map <C-l> :lnext<CR>
@@ -153,15 +200,19 @@ let g:go_debug_address = '127.0.0.1:2345'
 "nnoremap <leader>p :lclose<CR>
 
 let g:go_debug_mappings = {
-     \ '(go-debug-continue)': {'key': 'c', 'arguments': '<nowait>'},
-     \ '(go-debug-next)': {'key': 'n', 'arguments': '<nowait>'},
-     \ '(go-debug-step)': {'key': 's'},
-     \ '(go-debug-print)': {'key': 'p'},
- \}
+  \ '(go-debug-continue)': {'key': 'c', 'arguments': '<nowait>'},
+  \ '(go-debug-next)': {'key': 'n', 'arguments': '<nowait>'},
+  \ '(go-debug-step)': {'key': 's'},
+  \ '(go-debug-print)': {'key': 'p'},
+\}
 
 map <leader>ds :GoDebugStart<cr>
 map <leader>dt :GoDebugStop<cr>
 map <leader>db :GoDebugBreakpoint<cr>
+map <leader>dc :GoDebugContinue<cr>
+map <leader>dn :GoDebugNext<cr>
+map <leader>di :GoDebugStep<cr>
+map <leader>dp :GoDebugPrint<cr>
 
 
 " -------------------------------------------------------------------------------------------------

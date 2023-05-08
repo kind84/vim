@@ -2,11 +2,11 @@
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "languageserver": {
-     "golang": {
-       "command": "gopls",
-       "rootPatterns": ["go.mod"],
-       "filetypes": ["go"]
-     },
+     // "golang": {
+     //   "command": "gopls",
+     //   "rootPatterns": ["go.mod"],
+     //   "filetypes": ["go"]
+     // },
      "zig": {
        "command": "zls",
        "filetypes": [
@@ -23,5 +23,11 @@
          }
        }
      }
+  },
+  "go.goplsOptions": {
+    "buildFlags": ["-tags=integration"],
+    "env": {
+      "GOFLAGS": "-tags=integration"
+    }
   }
 }
