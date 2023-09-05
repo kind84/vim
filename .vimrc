@@ -64,10 +64,12 @@ nnoremap <silent> <leader>h :Hexmode<CR>
 com! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
 nnoremap = :FormatXML<Cr>
 
-autocmd FileType javascript setlocal shiftwidth=4 softtabstop=4 expandtab
-autocmd FileType yaml setlocal shiftwidth=4 softtabstop=4 expandtab
-autocmd FileType proto setlocal shiftwidth=4 softtabstop=4 expandtab
-autocmd FileType vue setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd!
+:autocmd FileType javascript setlocal shiftwidth=4 softtabstop=4 expandtab
+:autocmd FileType json setlocal shiftwidth=4 softtabstop=4 expandtab
+:autocmd FileType yaml setlocal shiftwidth=4 softtabstop=4 expandtab
+:autocmd FileType proto setlocal shiftwidth=2 softtabstop=2 expandtab
+:autocmd FileType vue setlocal shiftwidth=2 softtabstop=2 expandtab
 
 if empty(glob('~/.vim/autoload/plug.vim'))
 
