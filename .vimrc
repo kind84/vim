@@ -16,7 +16,7 @@ set listchars=eol:$,tab:>-,trail:.,nbsp:_,extends:+,precedes:+
 " Better display for messages
 set cmdheight=2
 
-set updatetime=300
+set updatetime=100
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
@@ -94,6 +94,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
@@ -114,6 +115,7 @@ Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/glyph-palette.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 Plug 'lambdalisue/fern-mapping-project-top.vim'
+Plug 'preservim/tagbar'
 
 call plug#end()
 
@@ -129,11 +131,30 @@ let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', '
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
+
+" -------------------------------------------------------------------------------------------------
+" Tagbar default settings
+" -------------------------------------------------------------------------------------------------
+
+nmap <leader>tt :TagbarToggle<CR>
+
+
 " -------------------------------------------------------------------------------------------------
 " fugitive default settings
 " -------------------------------------------------------------------------------------------------
 
 map <leader>gp :Git push<CR>
+
+
+" -------------------------------------------------------------------------------------------------
+" Gitgutter default settings
+" -------------------------------------------------------------------------------------------------
+
+highlight GitGutterAdd    guifg=#009900 ctermfg=2
+highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+
+"let g:gitgutter_set_sign_backgrounds = 1
 
 " -------------------------------------------------------------------------------------------------
 " nerdtree default settings
@@ -146,6 +167,7 @@ let NERDTreeIgnore = ['\.swp$']
 map <C-n> :NERDTreeToggle<CR>
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 
 " -------------------------------------------------------------------------------------------------
 " fern default settings
@@ -216,6 +238,9 @@ map <leader>dn :GoDebugNext<cr>
 map <leader>di :GoDebugStep<cr>
 map <leader>dp :GoDebugPrint<cr>
 
+map <leader>gd :GoDecls<cr>
+map <leader>gc :GoCoverage<cr>
+map <leader>gcc :GoCoverageClear<cr>
 
 " -------------------------------------------------------------------------------------------------
 " rust.vim default settings
@@ -338,3 +363,12 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Scroll documentation pop-ups
+nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+
