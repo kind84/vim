@@ -116,6 +116,7 @@ Plug 'lambdalisue/glyph-palette.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 Plug 'lambdalisue/fern-mapping-project-top.vim'
 Plug 'preservim/tagbar'
+Plug 'NoahTheDuke/vim-just'
 
 call plug#end()
 
