@@ -60,6 +60,9 @@ nnoremap <silent> <leader>c :Commands<cr>
 " nnoremap <silent> <leader>xd :%!xxd<CR>
 nnoremap <silent> <leader>h :Hexmode<CR>
 
+" map json prettify to leader-jj
+nnoremap <silent> <leader>jj :%!jq .<CR>
+
 " prettify xml
 com! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
 nnoremap = :FormatXML<Cr>
@@ -94,7 +97,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
