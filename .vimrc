@@ -37,6 +37,7 @@ set is hls
 
 inoremap " ""<left>
 inoremap ' ''<left>
+inoremap ` ``<left>
 inoremap ( ()<left>
 inoremap [ []<left>
 inoremap { {}<left>
@@ -52,9 +53,11 @@ nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 
-" map FZF to <C-p> for files and leader-c for commands
-nnoremap <silent> <C-p> :Files<cr>
-nnoremap <silent> <leader>c :Commands<cr>
+" map FZF to <C-p> for files, leader-c for commands, leader-b for buffers
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <leader>c :Commands<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>rg :RG<CR>
 
 " map hexdump to leader-h
 " nnoremap <silent> <leader>xd :%!xxd<CR>
@@ -120,6 +123,10 @@ Plug 'lambdalisue/fern-git-status.vim'
 Plug 'lambdalisue/fern-mapping-project-top.vim'
 Plug 'preservim/tagbar'
 Plug 'NoahTheDuke/vim-just'
+Plug 'inkarkat/vim-ingo-library'
+Plug 'inkarkat/vim-AdvancedSorters'
+"Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
+Plug 'mbbill/undotree'
 
 call plug#end()
 
@@ -128,6 +135,7 @@ packadd! matchit
 let g:ackprg = 'rg --vimgrep'
 let g:airline_powerline_fonts = 1
 let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'css', 'vim', 'json', 'diff', 'go', 'python']
+
 
 " -------------------------------------------------------------------------------------------------
 " Ctrl-P default settings
@@ -209,6 +217,7 @@ augroup my-glyph-palette
   autocmd FileType nerdtree,startify call glyph_palette#apply()
 augroup END
 
+
 " -------------------------------------------------------------------------------------------------
 " vim-go default settings
 " -------------------------------------------------------------------------------------------------
@@ -245,6 +254,7 @@ map <leader>dp :GoDebugPrint<cr>
 map <leader>gd :GoDecls<cr>
 map <leader>gc :GoCoverage<cr>
 map <leader>gcc :GoCoverageClear<cr>
+
 
 " -------------------------------------------------------------------------------------------------
 " rust.vim default settings
@@ -376,3 +386,25 @@ inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float
 vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
+
+" -------------------------------------------------------------------------------------------------
+" codeium default settings
+" -------------------------------------------------------------------------------------------------
+
+let g:codeium_enabled = v:false
+let g:codeium_no_map_tab = v:true
+
+map <C-a> :CodeiumEnable<CR>
+map <C-l> :CodeiumDisable<CR>
+imap <script><silent><nowait><expr> <C-g> codeium#Accept()
+imap <C-j>   <Cmd>call codeium#CycleCompletions(1)<CR>
+imap <C-k>   <Cmd>call codeium#CycleCompletions(-1)<CR>
+imap <C-x>   <Cmd>call codeium#Clear()<CR>
+imap <leader>ai   <Cmd>call codeium#Chat()<CR>
+
+
+" -------------------------------------------------------------------------------------------------
+" undotree default settings
+" -------------------------------------------------------------------------------------------------
+
+nnoremap <F5> :UndotreeToggle<CR>

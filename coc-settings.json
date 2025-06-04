@@ -2,11 +2,6 @@
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "languageserver": {
-     // "golang": {
-     //   "command": "gopls",
-     //   "rootPatterns": ["go.mod"],
-     //   "filetypes": ["go"]
-     // },
      "zig": {
        "command": "zls",
        "filetypes": [
@@ -24,10 +19,11 @@
        }
      }
   },
+  "go.goplsEnv": {
+    "GOFLAGS": "-tags=integration"
+  },
   "go.goplsOptions": {
-    "buildFlags": ["-tags=integration"],
-    "env": {
-      "GOFLAGS": "-tags=integration"
-    }
-  }
+    "buildFlags": ["-tags=integration"]
+  },
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/18.1.3/clangd_18.1.3/bin/clangd"
 }
