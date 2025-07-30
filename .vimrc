@@ -93,40 +93,40 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'preservim/nerdtree'
-Plug 'junegunn/vim-easy-align'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'branch': 'master' }
-Plug 'rust-lang/rust.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'tpope/vim-fugitive'
+"Plug 'adamheins/vim-highlight-match-under-cursor'
 "Plug 'airblade/vim-gitgutter'
+Plug 'cespare/vim-toml'
+"Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'branch': 'master' }
+Plug 'fidian/hexmode'
+Plug 'https://github.com/adelarsq/vim-devicons-emoji'
+Plug 'https://github.com/ryanoasis/vim-devicons'
+Plug 'inkarkat/vim-AdvancedSorters'
+Plug 'inkarkat/vim-ingo-library'
+Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'jparise/vim-graphql'
-Plug 'cespare/vim-toml'
-Plug 'ziglang/zig.vim'
-Plug 'mileszs/ack.vim'
-Plug 'fidian/hexmode'
-Plug 'https://github.com/ryanoasis/vim-devicons'
-Plug 'https://github.com/adelarsq/vim-devicons-emoji'
-Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-Plug 'sukima/xmledit'
-"Plug 'adamheins/vim-highlight-match-under-cursor'
-Plug 'lambdalisue/fern.vim'
-Plug 'lambdalisue/nerdfont.vim'
-Plug 'lambdalisue/fern-renderer-nerdfont.vim'
-Plug 'lambdalisue/glyph-palette.vim'
+Plug 'junegunn/vim-easy-align'
 Plug 'lambdalisue/fern-git-status.vim'
 Plug 'lambdalisue/fern-mapping-project-top.vim'
-Plug 'preservim/tagbar'
-Plug 'NoahTheDuke/vim-just'
-Plug 'inkarkat/vim-ingo-library'
-Plug 'inkarkat/vim-AdvancedSorters'
-"Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/glyph-palette.vim'
+Plug 'lambdalisue/nerdfont.vim'
 Plug 'mbbill/undotree'
+Plug 'mileszs/ack.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'NoahTheDuke/vim-just'
+Plug 'preservim/nerdtree'
+Plug 'preservim/tagbar'
+Plug 'rust-lang/rust.vim'
+Plug 'sukima/xmledit'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'ziglang/zig.vim'
 
 call plug#end()
 
@@ -225,10 +225,11 @@ augroup END
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
-
 let g:go_gopls_enabled = 0
 let g:go_diagnostics_level = 0
+" let g:go_auto_type_info = 1
 let g:go_doc_keywordprg_enabled = 0
+let g:go_updatetime = 300
 
 let g:go_debug_address = '127.0.0.1:2345'
 "map <C-j> :lfirst<CR>
