@@ -2,30 +2,31 @@
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "languageserver": {
-     // "zig": {
-     //   "command": "zls",
-     //   "filetypes": [
-     //     "zig"
-     //   ]
-     // },
-     "golang": {
-       "command": "gopls",
-       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-       "filetypes": ["go"],
-       "initializationOptions": {
-         "usePlaceholders": true
-       }
-     },
-     "ccls": {
-       "command": "ccls",
-       "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
-       "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
-       "initializationOptions": {
-         "cache": {
-             "directory": "/tmp/ccls"
-         }
-       }
-     }
+    // "zig": {
+    //   "command": "zls",
+    //   "filetypes": [
+    //     "zig"
+    //   ]
+    // },
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"],
+      "settings": {
+        "usePlaceholders": true,
+        // "gopls.buildFlags": ["-tags=integration,debug"]
+      }
+    },
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+      "settings": {
+        "cache": {
+            "directory": "/tmp/ccls"
+        }
+      }
+    }
   },
   "zig.enabled": true,
   "zig.startUpMessage": true,
