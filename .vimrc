@@ -1,11 +1,15 @@
 set nocompatible
-set nu rnu
+let mapleader = " "
+
+set encoding=utf-8
+set fileencoding=utf-8
+set number relativenumber
 set hidden
 set ruler
 set backspace=indent,eol,start
 
 set numberwidth=4
-set signcolumn=number
+set signcolumn=auto
 set cursorline
 
 highlight LineNr ctermfg=241 guifg=#665c54
@@ -33,15 +37,27 @@ set background=dark
 set t_Co=256
 
 " incremental search and highlight all matches
-set is hls
+set incsearch hlsearch
+set ignorecase smartcase
 
-" always show signcolumns
-" if has("patch-8.1.1564")
-"   " Recently vim can merge signcolumn and number column into one
-"   set signcolumn=number
-" else
-"   set signcolumn=yes
-" endif
+" natural split opening
+set splitright
+
+" keep lines visible above/below cursor
+set scrolloff=5
+
+" reload files changed outside vim
+set autoread
+
+" persistent undo
+set undofile
+set undodir=~/.vim/undodir
+
+" system clipboard
+set clipboard=unnamedplus
+
+" default indentation
+set tabstop=4 shiftwidth=4 expandtab
 
 inoremap " ""<left>
 inoremap ' ''<left>
@@ -68,22 +84,20 @@ nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>rg :RG<CR>
 
 " map hexdump to leader-h
-" nnoremap <silent> <leader>xd :%!xxd<CR>
 nnoremap <silent> <leader>h :Hexmode<CR>
 
 " map json prettify to leader-jj
 nnoremap <silent> <leader>jj :%!jq .<CR>
 
 " prettify xml
-com! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
-nnoremap = :FormatXML<Cr>
+command! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
+nnoremap <leader>fx :FormatXML<CR>
 
-autocmd!
-:autocmd FileType javascript setlocal shiftwidth=4 softtabstop=4 expandtab
-:autocmd FileType json setlocal shiftwidth=4 softtabstop=4 expandtab
-:autocmd FileType yaml setlocal shiftwidth=4 softtabstop=4 expandtab
-:autocmd FileType proto setlocal shiftwidth=2 softtabstop=2 expandtab
-:autocmd FileType vue setlocal shiftwidth=2 softtabstop=2 expandtab
+augroup filetypes
+  autocmd!
+  autocmd FileType javascript,json,yaml setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+  autocmd FileType proto,vue setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+augroup END
 
 if empty(glob('~/.vim/autoload/plug.vim'))
 
@@ -101,10 +115,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-"Plug 'adamheins/vim-highlight-match-under-cursor'
-"Plug 'airblade/vim-gitgutter'
 Plug 'cespare/vim-toml'
-"Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'branch': 'master' }
 Plug 'fidian/hexmode'
 Plug 'https://github.com/adelarsq/vim-devicons-emoji'
@@ -115,16 +126,8 @@ Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'lambdalisue/fern-git-status.vim'
-Plug 'lambdalisue/fern-mapping-project-top.vim'
-Plug 'lambdalisue/fern-renderer-nerdfont.vim'
-Plug 'lambdalisue/fern.vim'
-Plug 'lambdalisue/glyph-palette.vim'
-Plug 'lambdalisue/nerdfont.vim'
 Plug 'mbbill/undotree'
-Plug 'mileszs/ack.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'NoahTheDuke/vim-just'
 Plug 'preservim/nerdtree'
 Plug 'preservim/tagbar'
@@ -141,16 +144,8 @@ call plug#end()
 
 packadd! matchit
 
-let g:ackprg = 'rg --vimgrep'
 let g:airline_powerline_fonts = 1
 let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'css', 'vim', 'json', 'diff', 'go', 'python']
-
-
-" -------------------------------------------------------------------------------------------------
-" Ctrl-P default settings
-" -------------------------------------------------------------------------------------------------
-
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 
 " -------------------------------------------------------------------------------------------------
@@ -168,16 +163,6 @@ map <leader>gp :Git push<CR>
 
 
 " -------------------------------------------------------------------------------------------------
-" Gitgutter default settings
-" -------------------------------------------------------------------------------------------------
-
-highlight GitGutterAdd    guifg=#009900 ctermfg=2
-highlight GitGutterChange guifg=#bbbb00 ctermfg=3
-highlight GitGutterDelete guifg=#ff2222 ctermfg=1
-
-"let g:gitgutter_set_sign_backgrounds = 1
-
-" -------------------------------------------------------------------------------------------------
 " nerdtree default settings
 " -------------------------------------------------------------------------------------------------
 
@@ -186,44 +171,11 @@ let NERDTreeIgnore = ['\.swp$']
 
 " shortcut to open NERDTree
 map <C-n> :NERDTreeToggle<CR>
-" close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-
-" -------------------------------------------------------------------------------------------------
-" fern default settings
-" -------------------------------------------------------------------------------------------------
-
-let g:fern#renderer = "nerdfont"
-
-" Custom colors
-let g:glyph_palette#palette = copy(g:glyph_palette#defaults#palette)
-"let g:glyph_palette#palette['GlyphPalette3'] += ['']
-"let g:glyph_palette#palette['GlyphPalette3'] += ['']
-let glyph_custom_palette = glyph_palette#tools#palette_from({
-	      \ 'Function': ['zig'],
-	      \}, {
-	      \ 'zig': '' ,
-              \})
-"let g:glyph_palette#palette['GlyphPalette3'] += [glyph_custom_palette]
-
-
-
-map <leader>ff :Fern .<CR>
-
-function! s:init_fern() abort
-  " Add any code to customize fern buffer
-endfunction
-
-augroup fern-custom
-  autocmd! *
-  autocmd FileType fern call s:init_fern()
-augroup END
-
-augroup my-glyph-palette
-  autocmd! *
-  autocmd FileType fern call glyph_palette#apply()
-  autocmd FileType nerdtree,startify call glyph_palette#apply()
+augroup nerdtree
+  autocmd!
+  " close vim if the only window left open is a NERDTree
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
 
 
@@ -236,15 +188,10 @@ augroup END
 let g:go_def_mapping_enabled = 0
 let g:go_gopls_enabled = 0
 let g:go_diagnostics_level = 0
-" let g:go_auto_type_info = 1
 let g:go_doc_keywordprg_enabled = 0
 let g:go_updatetime = 300
 
 let g:go_debug_address = '127.0.0.1:2345'
-"map <C-j> :lfirst<CR>
-"map <C-l> :lnext<CR>
-"map <C-m> :lprevious<CR>
-"nnoremap <leader>p :lclose<CR>
 
 let g:go_debug_mappings = {
   \ '(go-debug-continue)': {'key': 'c', 'arguments': '<nowait>'},
@@ -253,17 +200,17 @@ let g:go_debug_mappings = {
   \ '(go-debug-print)': {'key': 'p'},
 \}
 
-map <leader>ds :GoDebugStart<cr>
-map <leader>dt :GoDebugStop<cr>
-map <leader>db :GoDebugBreakpoint<cr>
-map <leader>dc :GoDebugContinue<cr>
-map <leader>dn :GoDebugNext<cr>
-map <leader>di :GoDebugStep<cr>
-map <leader>dp :GoDebugPrint<cr>
+map <leader>ds :GoDebugStart<CR>
+map <leader>dt :GoDebugStop<CR>
+map <leader>db :GoDebugBreakpoint<CR>
+map <leader>dc :GoDebugContinue<CR>
+map <leader>dn :GoDebugNext<CR>
+map <leader>di :GoDebugStep<CR>
+map <leader>dp :GoDebugPrint<CR>
 
-map <leader>gd :GoDecls<cr>
-map <leader>gc :GoCoverage<cr>
-map <leader>gcc :GoCoverageClear<cr>
+map <leader>gd :GoDecls<CR>
+map <leader>gc :GoCoverage<CR>
+map <leader>gcc :GoCoverageClear<CR>
 
 
 " -------------------------------------------------------------------------------------------------
@@ -300,14 +247,9 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+" Use <cr> to confirm completion
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -343,7 +285,7 @@ nmap <leader>f  <Plug>(coc-format-selected)
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
@@ -378,10 +320,10 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 command! -nargs=0 Format :call CocAction('format')
 
 " Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
@@ -395,22 +337,6 @@ inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float
 inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-
-
-" -------------------------------------------------------------------------------------------------
-" codeium default settings
-" -------------------------------------------------------------------------------------------------
-
-let g:codeium_enabled = v:false
-let g:codeium_no_map_tab = v:true
-
-map <C-a> :CodeiumEnable<CR>
-map <C-l> :CodeiumDisable<CR>
-imap <script><silent><nowait><expr> <C-g> codeium#Accept()
-imap <C-j>   <Cmd>call codeium#CycleCompletions(1)<CR>
-imap <C-k>   <Cmd>call codeium#CycleCompletions(-1)<CR>
-imap <C-x>   <Cmd>call codeium#Clear()<CR>
-imap <leader>ai   <Cmd>call codeium#Chat()<CR>
 
 
 " -------------------------------------------------------------------------------------------------
