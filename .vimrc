@@ -1,8 +1,16 @@
 set nocompatible
-set nu
+set nu rnu
 set hidden
 set ruler
 set backspace=indent,eol,start
+
+set numberwidth=4
+set signcolumn=number
+set cursorline
+
+highlight LineNr ctermfg=241 guifg=#665c54
+highlight CursorLineNr ctermfg=214 cterm=bold guifg=#fabd2f gui=bold
+highlight CursorLine cterm=none gui=none ctermbg=236 guibg=#303030  " subtle background on current line
 
 set wildmenu
 set wildmode=full
