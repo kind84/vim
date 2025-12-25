@@ -1,4 +1,5 @@
 {
+  "coc.source.file.enable": true,
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "languageserver": {
@@ -38,5 +39,15 @@
   // "go.goplsOptions": {
   //   "buildFlags": ["-tags=integration"]
   // },
-  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/18.1.3/clangd_18.1.3/bin/clangd"
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/18.1.3/clangd_18.1.3/bin/clangd",
+  "yaml.validate": true,
+  "yaml.trace.server": "off",
+  "yaml.format.enable": true,
+  "yaml.schemas": {
+    "file:///home/paolo/src/majelan/helix/openapi/schema.json": [
+      "openapi/root.yaml",
+      "openapi/full.yaml"
+    ]
+  },
+  "yaml.customTags": ["!Ref", "!Sub", "!GetAtt"]
 }
