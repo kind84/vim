@@ -1,5 +1,5 @@
 set nocompatible
-let mapleader = " "
+" let mapleader = " "
 
 set encoding=utf-8
 set fileencoding=utf-8
@@ -14,7 +14,7 @@ set cursorline
 
 highlight LineNr ctermfg=241 guifg=#665c54
 highlight CursorLineNr ctermfg=214 cterm=bold guifg=#fabd2f gui=bold
-highlight CursorLine cterm=none gui=none ctermbg=236 guibg=#303030  " subtle background on current line
+highlight CursorLine cterm=none gui=none ctermbg=235 guibg=#262626  " subtle background on current line
 
 set wildmenu
 set wildmode=full
@@ -53,8 +53,10 @@ set autoread
 set undofile
 set undodir=~/.vim/undodir
 
-" system clipboard
-set clipboard=unnamedplus
+" system clipboard (only if available)
+if has('clipboard')
+  set clipboard=unnamedplus
+endif
 
 " default indentation
 set tabstop=4 shiftwidth=4 expandtab
